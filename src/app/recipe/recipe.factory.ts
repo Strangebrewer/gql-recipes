@@ -2,15 +2,15 @@ import { ConfigService } from '@nestjs/config';
 import { DatabaseConfig } from '../../config/database';
 import { Collection, Db } from 'mongodb';
 import { DB_CLIENT } from '../../shared/mongo/mongo.module';
-import { ExampleEntity } from './example.entity';
+import { RecipeEntity } from './recipe.entity';
 
-export const EXAMPLE_COLLECTION = 'EXAMPLE_COLLECTION';
+export const RECIPE_COLLECTION = 'RECIPE_COLLECTION';
 
-export const ExampleCollectionFactory = {
-  provide: EXAMPLE_COLLECTION,
-  useFactory: (configService: ConfigService, db: Db): Collection<ExampleEntity> => {
+export const RecipeCollectionFactory = {
+  provide: RECIPE_COLLECTION,
+  useFactory: (configService: ConfigService, db: Db): Collection<RecipeEntity> => {
     const { collections } = configService.get<DatabaseConfig>('database');
-    return db.collection(collections.example);
+    return db.collection(collections.recipe);
   },
   inject: [ConfigService, DB_CLIENT],
 };
