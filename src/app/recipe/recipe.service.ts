@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { GraphQLError } from 'graphql';
+import { DeleteResult } from '../../common/models/common.model';
 import { IdGeneratorService } from '../../shared/libs/id-generator/id-generator.service';
-import { RecipeEntity } from './recipe.entity';
-import { CreateRecipeArgs, DeleteResult, Recipe, UpdateRecipeArgs } from './recipe.model';
+import { RecipeEntity } from './models/recipe.entity';
+import { CreateRecipeArgs, Recipe, UpdateRecipeArgs } from './models/recipe.model';
 import { RecipeRepository } from './recipe.repository';
 
 @Injectable()
@@ -55,7 +56,16 @@ export class RecipeService {
 function mapToModel(entity: RecipeEntity): Recipe {
   return {
     id: entity.id,
-    thing: entity.thing,
     userId: entity.userId,
+    name: entity.name,
+    ingredients: entity.ingredients,
+    directions: entity.directions,
+    description: entity.description,
+    prepTime: entity.prepTime,
+    cookTime: entity.cookTime,
+    servings: entity.servings,
+    tags: entity.tags,
+    imageUrl: entity.imageUrl,
+    macros: entity.macros,
   };
 }

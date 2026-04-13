@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Collection, Filter, FindOptions, ReturnDocument, UpdateFilter } from 'mongodb';
-import { RECIPE_COLLECTION } from './recipe.factory';
-import { RecipeEntity, RecipeEntityRead } from './recipe.entity';
+import { RECIPE_COLLECTION } from '../../common/factory/recipe.factory';
+import { RecipeEntity, RecipeEntityRead } from './models/recipe.entity';
 
 @Injectable()
 export class RecipeRepository {

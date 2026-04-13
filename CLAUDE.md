@@ -8,11 +8,16 @@ Created from `gql-subgraph-template`. All patterns, structure, and tooling are i
 
 ---
 
-## Known Domains
+## Domains
 
-- `recipes` — recipe storage and retrieval
+### `recipes`
+Recipe storage and retrieval — ingredients, steps, tags, categories, etc. Document structure is intentionally flexible (variable ingredient formats, optional fields) — MongoDB is the right fit here.
 
-Additional domains TBD.
+| Detail | Value |
+|---|---|
+| ID prefix | `RCP-` |
+| Collection env var | `RECIPES_COLLECTION` |
+| Collection default | `recipes` |
 
 ---
 
@@ -21,4 +26,4 @@ Additional domains TBD.
 - Created from `gql-subgraph-template` via GitHub template
 - `package.json` name updated to `gql-recipes`
 - No domain code written yet — `example/` domain from template is still in place as reference
-- **Next**: write CLAUDE.md and README, then begin `recipes` domain
+- **Next**: build `recipes` domain; remove `example/` once it's working
