@@ -1,5 +1,5 @@
 export type RecipeEntity = {
-  id: string;
+  _id: string;
   userId: string;
   name: string;
   ingredients: string[];
@@ -11,8 +11,4 @@ export type RecipeEntity = {
   tags?: string[];
   imageUrl?: string;
   macros?: string;
-};
-
-export type RecipeEntityRead = RecipeEntity & {
-  _id?: string;
 };

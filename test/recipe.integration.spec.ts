@@ -4,7 +4,6 @@ import { Db, MongoClient } from 'mongodb';
 import { RECIPE_COLLECTION } from '../src/common/factory/recipe.factory';
 import { RecipeRepository } from '../src/app/recipe/recipe.repository';
 import { RecipeService } from '../src/app/recipe/recipe.service';
-import { IdGeneratorService } from '../src/shared/libs/id-generator/id-generator.service';
 
 describe('Recipe (integration)', () => {
   let container: StartedMongoDBContainer;
@@ -23,7 +22,6 @@ describe('Recipe (integration)', () => {
         { provide: RECIPE_COLLECTION, useValue: db.collection('recipes') },
         RecipeRepository,
         RecipeService,
-        IdGeneratorService,
       ],
     }).compile();
 
@@ -55,7 +53,7 @@ describe('Recipe (integration)', () => {
       userId,
     );
 
-    expect(created.id).toMatch(/^RCP-/);
+    expect(created.id).toBeDefined();
     expect(created.name).toBe('Spaghetti Carbonara');
     expect(created.ingredients).toEqual(['pasta', 'eggs', 'pancetta', 'pecorino', 'black pepper']);
     expect(created.directions).toHaveLength(4);
@@ -79,7 +77,7 @@ describe('Recipe (integration)', () => {
       'user-1',
     );
 
-    expect(created.id).toMatch(/^RCP-/);
+    expect(created.id).toBeDefined();
     expect(created.name).toBe('Toast');
     expect(created.prepTime).toBeUndefined();
     expect(created.cookTime).toBeUndefined();

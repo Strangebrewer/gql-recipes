@@ -1,17 +1,14 @@
+import { randomUUID } from 'crypto';
 import { Injectable } from '@nestjs/common';
 import { GraphQLError } from 'graphql';
 import { DeleteResult } from '../../common/models/common.model';
-import { IdGeneratorService } from '../../shared/libs/id-generator/id-generator.service';
 import { RecipeEntity } from './models/recipe.entity';
 import { CreateRecipeArgs, Recipe, UpdateRecipeArgs } from './models/recipe.model';
 import { RecipeRepository } from './recipe.repository';
 
 @Injectable()
 export class RecipeService {
-  constructor(
-    private readonly recipeRepository: RecipeRepository,
-    private readonly idGenerator: IdGeneratorService,
-  ) {}
+  constructor(private readonly recipeRepository: RecipeRepository) {}
 
   async findById(id: string): Promise<Recipe> {
     const record = await this.recipeRepository.findById(id);
@@ -32,7 +29,7 @@ export class RecipeService {
     const entity: RecipeEntity = {
       ...args,
       userId,
-      id: this.idGenerator.generate('RCP'),
+      _id: randomUUID(),
     };
     const record = await this.recipeRepository.create(entity);
     return mapToModel(record);
@@ -55,7 +52,7 @@ export class RecipeService {
 
 function mapToModel(entity: RecipeEntity): Recipe {
   return {
-    id: entity.id,
+    id: entity._id,
     userId: entity.userId,
     name: entity.name,
     ingredients: entity.ingredients,
