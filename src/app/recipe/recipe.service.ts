@@ -5,7 +5,7 @@ import { RecipeEntity } from './models/recipe.entity';
 import { CreateRecipeArgs, Recipe, UpdateRecipeArgs } from './models/recipe.model';
 import { RecipeRepository } from './recipe.repository';
 import { NotFoundError } from '../../common/errors';
-import { TRACER_CLIENT, TracerClient } from 'src/shared/tracer/tracer.module';
+import { TRACER_CLIENT, TracerClient } from '../../shared/tracer/tracer.module';
 
 @Injectable()
 export class RecipeService {
