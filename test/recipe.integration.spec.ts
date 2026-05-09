@@ -4,7 +4,6 @@ import { Db, MongoClient } from 'mongodb';
 import { RECIPE_COLLECTION } from '../src/common/factory/recipe.factory';
 import { RecipeRepository } from '../src/app/recipe/recipe.repository';
 import { RecipeService } from '../src/app/recipe/recipe.service';
-import { TRACER_CLIENT } from '../src/shared/tracer/tracer.module';
 
 describe('Recipe (integration)', () => {
   let container: StartedMongoDBContainer;
@@ -21,7 +20,6 @@ describe('Recipe (integration)', () => {
     module = await Test.createTestingModule({
       providers: [
         { provide: RECIPE_COLLECTION, useValue: db.collection('recipes') },
-        { provide: TRACER_CLIENT, useValue: { send: jest.fn(), sendSpan: jest.fn(), sendErrorSpan: jest.fn() } },
         RecipeRepository,
         RecipeService,
       ],

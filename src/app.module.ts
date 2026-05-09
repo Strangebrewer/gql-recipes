@@ -6,6 +6,8 @@ import { LoggerModule } from 'nestjs-pino';
 import configuration from './config/configuration';
 import { SharedModule } from './shared/shared.module';
 import { RecipeModule } from './app/recipe/recipe.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TraceInterceptor } from './common/interceptors/trace.interceptor';
 
 @Module({
   imports: [
@@ -16,9 +18,8 @@ import { RecipeModule } from './app/recipe/recipe.module';
     }),
     LoggerModule.forRoot({
       pinoHttp: {
-        transport: process.env.NODE_ENV !== 'production'
-          ? { target: 'pino-pretty' }
-          : undefined,
+        autoLogging: false,
+        transport: process.env.NODE_ENV !== 'production' ? { target: 'pino-pretty' } : undefined,
       },
     }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
@@ -28,5 +29,6 @@ import { RecipeModule } from './app/recipe/recipe.module';
     SharedModule,
     RecipeModule,
   ],
+  providers: [{ provide: APP_INTERCEPTOR, useClass: TraceInterceptor }],
 })
 export class AppModule {}
