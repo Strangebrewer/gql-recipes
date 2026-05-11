@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { Injectable } from '@nestjs/common';
 import { DeleteResult } from '../../common/models/common.model';
 import { RecipeEntity } from './models/recipe.entity';
-import { CreateRecipeArgs, Recipe, UpdateRecipeArgs } from './models/recipe.model';
+import { CreateRecipeInput, Recipe, UpdateRecipeInput } from './models/recipe.model';
 import { RecipeRepository } from './recipe.repository';
 import { NotFoundError } from '../../common/errors';
 
@@ -25,7 +25,7 @@ export class RecipeService {
     return records.map(mapToModel);
   }
 
-  async create(args: CreateRecipeArgs, userId: string): Promise<Recipe> {
+  async create(args: CreateRecipeInput, userId: string): Promise<Recipe> {
     const entity: RecipeEntity = {
       ...args,
       userId,
@@ -35,7 +35,7 @@ export class RecipeService {
     return mapToModel(record);
   }
 
-  async update(id: string, args: UpdateRecipeArgs): Promise<Recipe> {
+  async update(id: string, args: UpdateRecipeInput): Promise<Recipe> {
     const record = await this.recipeRepository.findOneAndUpdate(id, args);
     if (!record) {
       throw new NotFoundError('Recipe');

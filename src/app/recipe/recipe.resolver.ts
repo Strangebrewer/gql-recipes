@@ -2,7 +2,7 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { JwtAccessGuard, JwtUserId } from '../../common/guards/jwt-access.guard';
 import { DeleteResult } from '../../common/models/common.model';
-import { CreateRecipeArgs, Recipe, UpdateRecipeArgs } from './models/recipe.model';
+import { CreateRecipeInput, Recipe, UpdateRecipeInput } from './models/recipe.model';
 import { RecipeService } from './recipe.service';
 
 @Resolver(() => Recipe)
@@ -29,18 +29,18 @@ export class RecipeResolver {
   @UseGuards(JwtAccessGuard)
   async createRecipe(
     @JwtUserId() userId: string,
-    @Args() args: CreateRecipeArgs,
+    @Args('input') input: CreateRecipeInput,
   ): Promise<Recipe> {
-    return this.recipeService.create(args, userId);
+    return this.recipeService.create(input, userId);
   }
 
   @Mutation(() => Recipe)
   @UseGuards(JwtAccessGuard)
   async updateRecipe(
     @Args('id') id: string,
-    @Args() args: UpdateRecipeArgs,
+    @Args('input') input: UpdateRecipeInput,
   ): Promise<Recipe> {
-    return this.recipeService.update(id, args);
+    return this.recipeService.update(id, input);
   }
 
   @Mutation(() => DeleteResult)
