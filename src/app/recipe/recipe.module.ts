@@ -13,5 +13,6 @@ import { RecipeService } from './recipe.service';
     RecipeResolver,
     RecipeService,
   ],
+  exports: [RecipeService],
 })
 export class RecipeModule {}

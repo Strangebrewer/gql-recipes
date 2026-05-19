@@ -40,4 +40,8 @@ export class RecipeRepository {
   async deleteOne(id: string) {
     return this.collection.deleteOne({ [this.primaryKey]: id } as Filter<RecipeEntity>);
   }
+
+  async count(filter: Partial<RecipeEntity>): Promise<number> {
+    return this.collection.countDocuments(filter);
+  }
 }

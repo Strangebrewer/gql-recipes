@@ -9,6 +9,7 @@ import { RecipeModule } from './app/recipe/recipe.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TraceInterceptor } from './common/interceptors/trace.interceptor';
 import { RubeModule } from './app/rube/rube.module';
+import { PubSubModule } from './app/pubsub/pubsub.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { RubeModule } from './app/rube/rube.module';
     SharedModule,
     RecipeModule,
     RubeModule,
+    PubSubModule,
   ],
   providers: [{ provide: APP_INTERCEPTOR, useClass: TraceInterceptor }],
 })

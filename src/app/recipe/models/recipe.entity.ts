@@ -11,4 +11,5 @@ export type RecipeEntity = {
   tags?: string[];
   imageUrl?: string;
   macros?: string;
+  expiresAt?: Date;
 };
