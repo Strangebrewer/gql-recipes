@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { DatabaseConfig } from '../../config/database';
 import { Collection, Db } from 'mongodb';
 import { DB_CLIENT } from '../../shared/mongo/mongo.module';
-import { RecipeEntity } from './recipe.entity';
+import { RecipeEntity } from '../../app/recipe/models/recipe.entity';
 
 export const RECIPE_COLLECTION = 'RECIPE_COLLECTION';
 

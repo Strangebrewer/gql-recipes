@@ -6,6 +6,10 @@ import { LoggerModule } from 'nestjs-pino';
 import configuration from './config/configuration';
 import { SharedModule } from './shared/shared.module';
 import { RecipeModule } from './app/recipe/recipe.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TraceInterceptor } from './common/interceptors/trace.interceptor';
+import { RubeModule } from './app/rube/rube.module';
+import { PubSubModule } from './app/pubsub/pubsub.module';
 
 @Module({
   imports: [
@@ -16,9 +20,24 @@ import { RecipeModule } from './app/recipe/recipe.module';
     }),
     LoggerModule.forRoot({
       pinoHttp: {
-        transport: process.env.NODE_ENV !== 'production'
-          ? { target: 'pino-pretty' }
-          : undefined,
+        autoLogging: false,
+        level: 'info',
+        stream: {
+          write(msg: string) {
+            const entry = JSON.parse(msg);
+            const internal = [
+              'InstanceLoader',
+              'NestFactory',
+              'RouterExplorer',
+              'RoutesResolver',
+              'NestApplication',
+              'GraphQLModule',
+              'AppModule',
+            ];
+            if (internal.includes(entry.context)) return;
+            process.stdout.write(msg);
+          },
+        },
       },
     }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
@@ -27,6 +46,9 @@ import { RecipeModule } from './app/recipe/recipe.module';
     }),
     SharedModule,
     RecipeModule,
+    RubeModule,
+    PubSubModule,
   ],
+  providers: [{ provide: APP_INTERCEPTOR, useClass: TraceInterceptor }],
 })
 export class AppModule {}

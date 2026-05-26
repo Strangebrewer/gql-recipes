@@ -14,7 +14,7 @@ export default (): DatabaseConfig => ({
   username: process.env.DB_USERNAME || '',
   password: process.env.DB_PASSWORD || '',
   cluster: process.env.DB_CLUSTER || '',
-  name: process.env.DB_NAME || '',
+  name: process.env.DB_NAME || 'recipes',
   collections: {
     recipe: process.env.RECIPE_COLLECTION || 'recipes',
   },
