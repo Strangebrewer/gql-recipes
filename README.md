@@ -1,6 +1,6 @@
 # gql-recipes
 
-A NestJS Apollo Federation 2 subgraph for recipe management. Part of the [personal-enterprise](https://github.com/Strangebrewer/personal-enterprise) federated GraphQL layer.
+A NestJS Apollo Federation 2 subgraph for recipe management. Part of my personal-enterprise federated GraphQL layer.
 
 ---
 
