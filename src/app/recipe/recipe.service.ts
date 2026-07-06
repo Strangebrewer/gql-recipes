@@ -8,9 +8,7 @@ import { NotFoundError } from '../../common/errors';
 
 @Injectable()
 export class RecipeService {
-  constructor(
-    private readonly recipeRepository: RecipeRepository,
-  ) {}
+  constructor(private readonly recipeRepository: RecipeRepository) {}
 
   async findById(id: string): Promise<Recipe> {
     const record = await this.recipeRepository.findById(id);
@@ -25,7 +23,11 @@ export class RecipeService {
     return records.map(mapToModel);
   }
 
-  async create(args: CreateRecipeInput, userId: string, options?: { isDemo?: boolean; expiresAt?: Date }): Promise<Recipe> {
+  async create(
+    args: CreateRecipeInput,
+    userId: string,
+    options?: { isDemo?: boolean; expiresAt?: Date },
+  ): Promise<Recipe> {
     if (options?.isDemo) {
       const count = await this.recipeRepository.count({ userId });
       if (count >= 6) throw new ForbiddenException('demo recipe limit reached');

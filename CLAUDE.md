@@ -11,13 +11,14 @@ Created from `gql-subgraph-template`. All patterns, structure, and tooling are i
 ## Domains
 
 ### `recipes`
+
 Recipe storage and retrieval — ingredients, steps, tags, categories, etc. Document structure is intentionally flexible (variable ingredient formats, optional fields) — MongoDB is the right fit here.
 
-| Detail | Value |
-|---|---|
-| ID prefix | `RCP-` |
+| Detail             | Value                |
+| ------------------ | -------------------- |
+| ID prefix          | `RCP-`               |
 | Collection env var | `RECIPES_COLLECTION` |
-| Collection default | `recipes` |
+| Collection default | `recipes`            |
 
 ---
 

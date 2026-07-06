@@ -10,14 +10,16 @@ export const DB_CLIENT = 'DB_CLIENT';
     {
       provide: DB_CLIENT,
       useFactory: async (configService: ConfigService): Promise<Db> => {
-        const { uri, username, password, cluster, name, collections } = configService.get<DatabaseConfig>('database');
-        const connectionUri = uri ?? `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${name}?retryWrites=true`;
+        const { uri, username, password, cluster, name, collections } =
+          configService.get<DatabaseConfig>('database');
+        const connectionUri =
+          uri ??
+          `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${name}?retryWrites=true`;
         const client = await MongoClient.connect(connectionUri);
         const db = client.db(name);
-        await db.collection(collections.recipe).createIndex(
-          { expiresAt: 1 },
-          { expireAfterSeconds: 0, sparse: true },
-        );
+        await db
+          .collection(collections.recipe)
+          .createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0, sparse: true });
         return db;
       },
       inject: [ConfigService],

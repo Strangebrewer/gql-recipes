@@ -11,17 +11,13 @@ export class RecipeResolver {
 
   @Query(() => Recipe)
   @UseGuards(JwtAccessGuard)
-  async getRecipe(
-    @Args('id') id: string,
-  ): Promise<Recipe> {
+  async getRecipe(@Args('id') id: string): Promise<Recipe> {
     return this.recipeService.findById(id);
   }
 
   @Query(() => [Recipe])
   @UseGuards(JwtAccessGuard)
-  async getRecipes(
-    @JwtUserId() userId: string,
-  ): Promise<Recipe[]> {
+  async getRecipes(@JwtUserId() userId: string): Promise<Recipe[]> {
     return this.recipeService.find(userId);
   }
 
@@ -46,9 +42,7 @@ export class RecipeResolver {
 
   @Mutation(() => DeleteResult)
   @UseGuards(JwtAccessGuard)
-  async deleteRecipe(
-    @Args('id') id: string,
-  ): Promise<DeleteResult> {
+  async deleteRecipe(@Args('id') id: string): Promise<DeleteResult> {
     return this.recipeService.delete(id);
   }
 }

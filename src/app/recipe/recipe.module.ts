@@ -7,12 +7,7 @@ import { RecipeService } from './recipe.service';
 
 @Module({
   imports: [SharedModule],
-  providers: [
-    RecipeCollectionFactory,
-    RecipeRepository,
-    RecipeResolver,
-    RecipeService,
-  ],
+  providers: [RecipeCollectionFactory, RecipeRepository, RecipeResolver, RecipeService],
   exports: [RecipeService],
 })
 export class RecipeModule {}
